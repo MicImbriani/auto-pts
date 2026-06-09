@@ -1,0 +1,52 @@
+services:
+
+  postgres:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_DB: autopts
+      POSTGRES_USER: autopts
+      POSTGRES_PASSWORD: autopts
+    ports:
+      - "5432:5432"
+    volumes:
+      - pg_data:/var/lib/postgresql/data
+      - ../warehouse/sql:/docker-entrypoint-initdb.d:ro
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U autopts"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  dagster-webserver:
+    build:
+      context: ..
+      dockerfile: warehouse/Dockerfile
+    command: dagster-webserver -h 0.0.0.0 -p 3000 -w workspace.yaml
+    ports:
+      - "3000:3000"
+    environment:
+      AUTOPTS_WH_DSN: "host=postgres port=5432 dbname=autopts user=autopts password=autopts"
+      AUTOPTS_RESULTS_SCAN_DIR: /results
+    volumes:
+      - results_scan:/results
+    depends_on:
+      postgres:
+        condition: service_healthy
+
+  dagster-daemon:
+    build:
+      context: ..
+      dockerfile: warehouse/Dockerfile
+    command: dagster-daemon run
+    environment:
+      AUTOPTS_WH_DSN: "host=postgres port=5432 dbname=autopts user=autopts password=autopts"
+      AUTOPTS_RESULTS_SCAN_DIR: /results
+    volumes:
+      - results_scan:/results
+    depends_on:
+      postgres:
+        condition: service_healthy
+
+volumes:
+  pg_data:
+  results_scan:

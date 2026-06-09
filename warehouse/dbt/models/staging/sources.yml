@@ -1,0 +1,13 @@
+version: 2
+
+sources:
+  - name: raw
+    schema: raw
+    tables:
+      - name: test_results_landing
+        description: "Raw landing table — one row per test case per ingested XML file."
+        columns:
+          - name: run_id
+            tests: [not_null]
+          - name: name
+            tests: [not_null]

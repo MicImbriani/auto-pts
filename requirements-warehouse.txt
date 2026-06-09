@@ -1,0 +1,5 @@
+dagster>=1.7,<2
+dagster-webserver>=1.7,<2
+psycopg2-binary>=2.9
+dbt-postgres>=1.8,<2
+dbt-utils>=1.2

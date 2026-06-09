@@ -1,0 +1,12 @@
+autopts_warehouse:
+  target: dev
+  outputs:
+    dev:
+      type: postgres
+      host: "{{ env_var('PGHOST', 'localhost') }}"
+      port: "{{ env_var('PGPORT', '5432') | int }}"
+      dbname: "{{ env_var('PGDATABASE', 'autopts') }}"
+      user: "{{ env_var('PGUSER', 'autopts') }}"
+      password: "{{ env_var('PGPASSWORD', 'autopts') }}"
+      schema: analytics
+      threads: 4
