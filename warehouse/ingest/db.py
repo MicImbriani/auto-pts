@@ -33,9 +33,10 @@ def bootstrap(conn):
     conn.execute(_CREATE_BRONZE)
 
 
-def run_already_ingested(conn, run_id: str) -> bool:
+def file_already_ingested(conn, run_id: str, path) -> bool:
     result = conn.execute(
-        'SELECT COUNT(*) FROM bronze_test_results WHERE run_id = ?', [run_id]
+        'SELECT COUNT(*) FROM bronze_test_results WHERE run_id = ? AND file_path = ?',
+        [run_id, str(path)],
     ).fetchone()
     return result[0] > 0
 
