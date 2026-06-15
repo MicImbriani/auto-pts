@@ -1,0 +1,29 @@
+version: 2
+
+sources:
+  - name: bronze
+    schema: main
+    tables:
+      - name: bronze_test_results
+        description: "Raw PTS log data ingested by the Python ingest script. One row per XML file."
+        columns:
+          - name: file_path
+            description: "Absolute path to the source XML file."
+          - name: run_id
+            description: "CI job ID — groups all files from the same test run."
+          - name: ingested_at
+            description: "Timestamp of when this row was written to the database."
+          - name: test_case_name
+            description: "Full test case name e.g. AICS/SR/CP/BV-01-C."
+          - name: final_verdict
+            description: "Final verdict from the PTS log e.g. PASS, FAIL, INCONC."
+          - name: started_at
+            description: "Timestamp parsed from the XML filename."
+          - name: pts_version
+            description: "PTS tool version e.g. v8.13.0 Build 4."
+          - name: profile
+            description: "Bluetooth profile — first segment of test_case_name."
+          - name: duration_ms
+            description: "Total test duration in milliseconds."
+          - name: pics_pixit_raw
+            description: "Full PicsPixit block as raw text."

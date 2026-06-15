@@ -1,0 +1,6 @@
+autopts_warehouse:
+  target: dev
+  outputs:
+    dev:
+      type: duckdb
+      path: "{{ env_var('AUTOPTS_WH_PATH', './autopts_warehouse.duckdb') }}"
