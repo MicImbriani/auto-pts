@@ -14,11 +14,13 @@ python -m warehouse.ingest.run <CI_JOB_ID> <path/to/run/folder>
 
 The run folder must contain an `XMLs/` subdirectory with PTS log XML files.
 
-The database path defaults to `./autopts_warehouse.duckdb`. Override with:
+The database path is set via a required environment variable:
 
 ```bash
 export AUTOPTS_WH_PATH=/path/to/autopts_warehouse.duckdb
 ```
+
+This must be set before running both the ingest script and dbt commands.
 
 ## Run dbt transforms
 
