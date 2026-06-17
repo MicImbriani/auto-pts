@@ -7,8 +7,8 @@ WITH base AS (
 , pts_version
 , final_verdict
 , pics_pixit_raw
-, started_at::TIMESTAMP
-, duration_ms::INTEGER
+, started_at::TIMESTAMP AS started_at
+, duration_ms::INTEGER AS duration_ms
 , CASE WHEN final_verdict = 'PASS' THEN TRUE ELSE FALSE END AS is_pass
 , ROW_NUMBER() OVER(partition BY test_case_name, run_id ORDER BY started_at ) AS attempt_number
 FROM {{ source('bronze', 'bronze_test_results')}}
