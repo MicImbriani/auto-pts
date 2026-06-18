@@ -1,0 +1,58 @@
+version: 2
+
+models:
+  - name: stg_test_results
+    description: "Cleaned and enriched bronze rows. One row per test case execution attempt."
+    columns:
+      - name: file_path
+        tests:
+          - not_null
+      - name: run_id
+        tests:
+          - not_null
+      - name: test_case_name
+        tests:
+          - not_null
+      - name: profile
+        tests:
+          - not_null
+      - name: final_verdict
+        tests:
+          - not_null
+      - name: started_at
+        tests:
+          - not_null
+      - name: duration_ms
+        tests:
+          - not_null
+      - name: is_pass
+        tests:
+          - not_null
+      - name: attempt_number
+        tests:
+          - not_null
+      - name: is_final_attempt
+        tests:
+          - not_null
+
+  - name: stg_pics_pixit
+    description: "PicsPixit block parsed into one row per ICS/IXIT parameter per file."
+    columns:
+      - name: file_path
+        tests:
+          - not_null
+      - name: run_id
+        tests:
+          - not_null
+      - name: parameter_name
+        tests:
+          - not_null
+      - name: parameter_value
+        tests:
+          - not_null
+      - name: parameter_type
+        tests:
+          - not_null
+          - accepted_values:
+              arguments:
+                values: ['ICS', 'IXIT']

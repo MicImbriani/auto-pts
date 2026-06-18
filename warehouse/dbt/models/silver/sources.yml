@@ -9,21 +9,41 @@ sources:
         columns:
           - name: file_path
             description: "Absolute path to the source XML file."
+            tests:
+              - not_null
           - name: run_id
             description: "CI job ID — groups all files from the same test run."
+            tests:
+              - not_null
           - name: ingested_at
             description: "Timestamp of when this row was written to the database."
+            tests:
+              - not_null
           - name: test_case_name
             description: "Full test case name e.g. AICS/SR/CP/BV-01-C."
+            tests:
+              - not_null
           - name: final_verdict
             description: "Final verdict from the PTS log e.g. PASS, FAIL, INCONC."
+            tests:
+              - not_null
           - name: started_at
             description: "Timestamp parsed from the XML filename."
+            tests:
+              - not_null
           - name: pts_version
             description: "PTS tool version e.g. v8.13.0 Build 4."
+            tests:
+              - not_null
           - name: profile
             description: "Bluetooth profile — first segment of test_case_name."
+            tests:
+              - not_null
           - name: duration_ms
             description: "Total test duration in milliseconds."
+            tests:
+              - not_null
           - name: pics_pixit_raw
             description: "Full PicsPixit block as raw text."
+            tests:
+              - not_null

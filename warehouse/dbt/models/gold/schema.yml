@@ -1,0 +1,89 @@
+version: 2
+
+models:
+  - name: mart_test_case_history
+    description: "Full verdict history per test case. One row per test case per run (final attempt only)."
+    columns:
+      - name: run_id
+        tests:
+          - not_null
+      - name: test_case_name
+        tests:
+          - not_null
+      - name: profile
+        tests:
+          - not_null
+      - name: final_verdict
+        tests:
+          - not_null
+      - name: is_pass
+        tests:
+          - not_null
+      - name: attempt_number
+        tests:
+          - not_null
+
+  - name: mart_regressions
+    description: "Regression and progress detection per test case per run."
+    columns:
+      - name: run_id
+        tests:
+          - not_null
+      - name: test_case_name
+        tests:
+          - not_null
+      - name: is_regression
+        tests:
+          - not_null
+      - name: is_progress
+        tests:
+          - not_null
+
+  - name: mart_profile_passrate
+    description: "Pass rate per profile per run."
+    columns:
+      - name: run_id
+        tests:
+          - not_null
+      - name: profile
+        tests:
+          - not_null
+      - name: total_cases
+        tests:
+          - not_null
+      - name: pass_rate_pct
+        tests:
+          - not_null
+
+  - name: mart_flakiness
+    description: "Flakiness metrics per test case across all runs."
+    columns:
+      - name: test_case_name
+        tests:
+          - not_null
+          - unique
+      - name: profile
+        tests:
+          - not_null
+      - name: retry_rate_pct
+        tests:
+          - not_null
+      - name: first_attempt_pass_rate_pct
+        tests:
+          - not_null
+
+  - name: mart_duration_trends
+    description: "Duration per attempt per run, with trend metrics on final attempts."
+    columns:
+      - name: run_id
+        tests:
+          - not_null
+      - name: test_case_name
+        tests:
+          - not_null
+      - name: attempt_number
+        tests:
+          - not_null
+      - name: duration_ms
+        tests:
+          - not_null
